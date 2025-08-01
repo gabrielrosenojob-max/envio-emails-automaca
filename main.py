@@ -140,7 +140,9 @@ def rodar_envio():
 def manter_online():
     app.run(host='0.0.0.0', port=8080)
 
-Thread(target=manter_online).start()
+if __name__ == '__main__':
+    Thread(target=manter_online).start()
+    Thread(target=executar).start()
 
 
 

@@ -1,4 +1,4 @@
-# ENVIO AUTOMÁTICO + COLETA DE EMAILS PARA SERVIDOR (REPLIT)
+# ENVIO AUTOMÁTICO + COLETA DE EMAILS PARA SERVIDOR (RAILWAY)
 
 import os
 import smtplib
@@ -122,28 +122,18 @@ def executar():
             enviados_hoje += 1
         time.sleep(random.uniform(30, 90))
 
-# === SERVIDOR FLASK PARA MANTER ONLINE ===
-app = Flask('')
+# === FLASK ===
+app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return "Rodando automaticamente."
+    return "Aplicação rodando no Railway!"
 
-def manter_online():
-    app.run(host='0.0.0.0', port=8080)
-
-@app.route('/rodar')
+@app.route("/rodar")
 def rodar_envio():
     Thread(target=executar).start()
-    return "Envio iniciado."
-
-def manter_online():
-    app.run(host='0.0.0.0', port=8080)
+    return "Envio iniciado com sucesso."
 
 if __name__ == '__main__':
-    Thread(target=manter_online).start()
-    Thread(target=executar).start()
-
-
-
-# Use o agendador do Replit ou UptimeRobot para rodar isso 1x por dia
+    # Inicia apenas o servidor web — o envio será disparado via /rodar ou com cron do Railway
+    app.run(host='0.0.0.0', port=8080)
